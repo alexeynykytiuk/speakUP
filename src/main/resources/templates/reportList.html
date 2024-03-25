@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SpeakUp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg" style="background-color: black">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="/images/SpeakUp.png" width="40" height="40">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/report" style="color: white">Отчеты</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/group" style="color: white">Групы</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/calculate" style="color: white">Расчет</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <form action="/report/create" method="post" style="margin-left: 5%; margin-top: 1%; margin-bottom: 1%">
+        <strong style="font-size: large">Мои отчеты</strong>
+        <button type="submit" class="btn btn-warning">Создать отчет</button>
+        <strong style="font-size: large; margin-left: 75%" th:text="${sumForMonth}"></strong>
+    </form>
+
+
+<div class="card mx-auto" th:each="report: ${reports}" style="width: 90%; margin-bottom: 1%">
+
+    <a th:href="@{/report/date/{id}(id=${report.id})}" >
+    <div class="card-header" th:text="${report.dates}"></div>
+    </a>
+    <div class="card-body">
+        <h6 th:text="'Количество уроков: ' + ${report.numberOfLessons}"></h6>
+        <form action="/report/delete" method="post">
+        <div class="d-flex justify-content-end">
+            <input type="hidden" th:value="${report.id}" name="id">
+            <button type="submit" class="btn btn-danger" >Удалить</button>
+        </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</body>
+</html>
